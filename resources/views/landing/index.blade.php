@@ -4,32 +4,71 @@
 
 <!-- Hero Section -->
 <section id="home" class="hero-section">
+    <div class="hero-bg">
+        <div class="hero-orb orb-1"></div>
+        <div class="hero-orb orb-2"></div>
+        <div class="hero-orb orb-3"></div>
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="hero-lines">
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+        </div>
+    </div>
+    <div class="hero-grain"></div>
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8 hero-content fade-in">
+        <div class="row">
+            <div class="col-lg-8 hero-content">
+                <span class="hero-subtitle">{{ $hero->subtitle ?? 'Creative Excellence' }}</span>
                 <h1 class="hero-title">{{ $hero->title ?? 'Transform Your Brand with AI-Powered Creativity' }}</h1>
-                <p class="hero-subtitle">{{ $hero->subtitle ?? 'We help brands grow with content that is fast, consistent, and unmistakably on-brand.' }}</p>
-                <a href="{{ $hero->cta_link ?? '#contact' }}" class="btn-primary-custom">{{ $hero->cta_text ?? 'Get Started' }}</a>
+                <p class="hero-description">{{ $hero->description ?? 'We help brands grow with content that is fast, consistent, and unmistakably on-brand.' }}</p>
+                <div class="hero-cta">
+                    <a href="{{ $hero->cta_link ?? '#contact' }}" class="btn-primary-custom">
+                        {{ $hero->cta_text ?? 'Get Started' }}
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
     </div>
 </section>
 
 <!-- About Section -->
 <section id="about" class="about-section section-padding">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center g-5">
             <div class="col-lg-6 fade-in">
-                @if($about && $about->image)
-                    <img src="{{ asset('storage/' . $about->image) }}" alt="About Us" class="img-fluid rounded-3 shadow" loading="lazy">
-                @else
-                    <img src="https://via.placeholder.com/600x400/1a4d2e/ffffff?text=About+Us" alt="About Us" class="img-fluid rounded-3 shadow" loading="lazy">
-                @endif
+                <div class="about-image-wrapper">
+                    @if($about && $about->image)
+                        <img src="{{ asset('storage/' . $about->image) }}" alt="About Us" class="img-fluid" loading="lazy">
+                    @else
+                        <img src="https://via.placeholder.com/600x750/0a0a0a/ffffff?text=About" alt="About Us" class="img-fluid" loading="lazy">
+                    @endif
+                </div>
             </div>
             <div class="col-lg-6 fade-in">
-                <h2 class="section-title text-start">{{ $about->title ?? 'About Us' }}</h2>
+                <span class="section-label">About Us</span>
+                <h2 class="section-title">{{ $about->title ?? 'We Are SOMA' }}</h2>
                 <div class="about-content">
-                    {!! $about->content ?? 'We are the first creative branding agency AI based that built to help brands grow with content that\'s fast, consistent, and unmistakably on-brand. We combine an AI content engine with branding experts who understand your guidelines, so you achieve premium output without conventional agency overhead. Let\'s make your brand impossible to ignore.' !!}
+                    {!! $about->content ?? 'We are the first creative branding agency AI based that built to help brands grow with content that\'s fast, consistent, and unmistakably on-brand. We combine an AI content engine with branding experts who understand your guidelines, so you achieve premium output without conventional agency overhead.' !!}
                 </div>
             </div>
         </div>
@@ -39,26 +78,26 @@
 <!-- What We Do Section -->
 <section class="whatwedo-section section-padding">
     <div class="container">
-        <h2 class="section-title fade-in">{{ $whatWeDo->title ?? 'What We Do' }}</h2>
-        <div class="whatwedo-content fade-in">
-            {!! nl2br(e($whatWeDo->content ?? 'We\'ll do whatever it takes to get your brand the attention it deserves, not just reach but real relevance. We deliver a full spectrum of creative branding services with an AI-powered workflow to create deeper, stronger, and longer-lasting connections between your brand, your ideas, and your audience.')) !!}
-        </div>
+        <span class="section-label fade-in">What We Do</span>
+        <h2 class="whatwedo-content fade-in">
+            {{ $whatWeDo->content ?? 'We\'ll do whatever it takes to get your brand the attention it deserves, not just reach but real relevance. We deliver a full spectrum of creative branding services with an AI-powered workflow.' }}
+        </h2>
     </div>
 </section>
 
 <!-- Services Section -->
 <section id="services" class="services-section section-padding">
     <div class="container">
-        <h2 class="section-title fade-in">Our Services</h2>
-        <p class="section-subtitle fade-in">Comprehensive creative branding solutions powered by AI</p>
+        <div class="text-center mb-5">
+            <span class="section-label fade-in">Our Services</span>
+            <h2 class="section-title fade-in">What We Offer</h2>
+        </div>
         
         <div class="row g-4">
-            @foreach($services as $service)
-            <div class="col-md-6 col-lg-4 fade-in">
+            @foreach($services as $index => $service)
+            <div class="col-md-6 col-lg-4 fade-in stagger-{{ $index + 1 }}">
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="{{ $service->icon }}"></i>
-                    </div>
+                    <span class="service-number">0{{ $index + 1 }}</span>
                     <h3 class="service-title">{{ $service->title }}</h3>
                     <p class="service-description">{{ $service->description }}</p>
                 </div>
@@ -71,8 +110,10 @@
 <!-- Portfolio Section -->
 <section id="works" class="portfolio-section section-padding">
     <div class="container">
-        <h2 class="section-title fade-in">Our Works</h2>
-        <p class="section-subtitle fade-in">Take a closer look to see how we've helped brands create on-brand content that performs from strategy to scroll-stopping visuals.</p>
+        <div class="text-center mb-5">
+            <span class="section-label fade-in">Our Works</span>
+            <h2 class="section-title fade-in">Featured Projects</h2>
+        </div>
         
         @if($categories->count() > 0)
         <div class="portfolio-filter fade-in">
@@ -91,9 +132,6 @@
                     <div class="portfolio-overlay">
                         <h4 class="portfolio-title">{{ $work->title }}</h4>
                         <span class="portfolio-category">{{ ucfirst($work->category) }}</span>
-                        @if($work->description)
-                            <p class="mt-2 text-white-50">{{ Str::limit($work->description, 100) }}</p>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -105,55 +143,59 @@
 <!-- Contact Section -->
 <section id="contact" class="contact-section section-padding">
     <div class="container">
-        <h2 class="section-title fade-in">Get In Touch</h2>
-        <p class="section-subtitle fade-in">Ready to transform your brand? Let's start a conversation.</p>
+        <div class="text-center mb-5">
+            <span class="section-label fade-in">Get In Touch</span>
+            <h2 class="section-title fade-in">Let's Talk</h2>
+        </div>
         
-        <div class="row">
-            <div class="col-lg-8 mx-auto fade-in">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 fade-in">
                 <div class="contact-form">
                     <form id="contactForm" action="{{ route('contact.submit') }}" method="POST">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                        <div class="row g-4">
+                            <div class="col-md-6">
                                 <label class="form-label">Your Name *</label>
                                 <input type="text" name="name" class="form-control" required>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6">
                                 <label class="form-label">Your Email *</label>
                                 <input type="email" name="email" class="form-control" required>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                        <div class="row g-4 mt-2">
+                            <div class="col-md-6">
                                 <label class="form-label">Phone</label>
                                 <input type="tel" name="phone" class="form-control">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6">
                                 <label class="form-label">Subject</label>
                                 <input type="text" name="subject" class="form-control">
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mt-4">
                             <label class="form-label">Message *</label>
-                            <textarea name="message" class="form-control" rows="5" required></textarea>
+                            <textarea name="message" class="form-control" rows="4" required></textarea>
                         </div>
-                        <button type="submit" class="btn-submit">
-                            <i class="fas fa-paper-plane me-2"></i>Send Message
-                        </button>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane"></i>Send Message
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
         
-        <div class="row mt-5">
+        <div class="row g-4 mt-5 justify-content-center">
             <div class="col-md-4 text-center fade-in">
                 <div class="contact-info-item justify-content-center">
                     <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
-                    <div class="text-start">
+                    <div>
                         <h5>Email</h5>
-                        <p class="mb-0">{{ $contactInfo->email ?? 'hello@agency.com' }}</p>
+                        <p class="mb-0">{{ $contactInfo->email ?? 'hello@soma.com' }}</p>
                     </div>
                 </div>
             </div>
@@ -162,7 +204,7 @@
                     <div class="contact-icon">
                         <i class="fas fa-phone"></i>
                     </div>
-                    <div class="text-start">
+                    <div>
                         <h5>Phone</h5>
                         <p class="mb-0">{{ $contactInfo->phone ?? '+1 234 567 890' }}</p>
                     </div>
@@ -173,9 +215,9 @@
                     <div class="contact-icon">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
-                    <div class="text-start">
+                    <div>
                         <h5>Address</h5>
-                        <p class="mb-0">{{ $contactInfo->address ?? '123 Creative Street, Design City' }}</p>
+                        <p class="mb-0">{{ $contactInfo->address ?? '123 Creative Street' }}</p>
                     </div>
                 </div>
             </div>
@@ -186,11 +228,11 @@
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <h4 class="footer-title">Social Media Agency</h4>
-                <p>We are the first creative branding agency AI based that built to help brands grow with content that's fast, consistent, and unmistakably on-brand.</p>
-                <div class="social-links mt-3">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <span class="footer-brand">SOMA</span>
+                <p class="footer-description">{{ $about->content ?? 'We are the first creative branding agency AI based that built to help brands grow with content that\'s fast, consistent, and unmistakably on-brand.' }}</p>
+                <div class="social-links mt-4">
                     @if($contactInfo && $contactInfo->facebook_link)
                         <a href="{{ $contactInfo->facebook_link }}" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     @endif
@@ -208,7 +250,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-lg-4 mb-4">
+            <div class="col-lg-4">
                 <h4 class="footer-title">Quick Links</h4>
                 <a href="#home" class="footer-link">Home</a>
                 <a href="#about" class="footer-link">About Us</a>
@@ -216,15 +258,15 @@
                 <a href="#works" class="footer-link">Our Works</a>
                 <a href="#contact" class="footer-link">Contact</a>
             </div>
-            <div class="col-lg-4 mb-4">
+            <div class="col-lg-4">
                 <h4 class="footer-title">Contact Info</h4>
-                <p><i class="fas fa-envelope me-2"></i>{{ $contactInfo->email ?? 'hello@agency.com' }}</p>
-                <p><i class="fas fa-phone me-2"></i>{{ $contactInfo->phone ?? '+1 234 567 890' }}</p>
-                <p><i class="fas fa-map-marker-alt me-2"></i>{{ $contactInfo->address ?? '123 Creative Street, Design City' }}</p>
+                <p class="footer-link mb-2"><i class="fas fa-envelope me-2"></i>{{ $contactInfo->email ?? 'hello@soma.com' }}</p>
+                <p class="footer-link mb-2"><i class="fas fa-phone me-2"></i>{{ $contactInfo->phone ?? '+1 234 567 890' }}</p>
+                <p class="footer-link mb-2"><i class="fas fa-map-marker-alt me-2"></i>{{ $contactInfo->address ?? '123 Creative Street' }}</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} Social Media Agency. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} SOMA. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -234,7 +276,6 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Portfolio filter
     document.querySelectorAll('.portfolio-filter button').forEach(button => {
         button.addEventListener('click', function() {
             document.querySelectorAll('.portfolio-filter button').forEach(btn => btn.classList.remove('active'));
@@ -252,7 +293,6 @@
         });
     });
 
-    // Contact form submission
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -278,7 +318,7 @@
                     icon: 'success',
                     title: 'Success!',
                     text: data.message,
-                    confirmButtonColor: '#1a4d2e'
+                    confirmButtonColor: '#0a0a0a'
                 });
                 form.reset();
             } else {
@@ -286,7 +326,7 @@
                     icon: 'error',
                     title: 'Error',
                     text: 'Something went wrong. Please try again.',
-                    confirmButtonColor: '#1a4d2e'
+                    confirmButtonColor: '#0a0a0a'
                 });
             }
         })
@@ -295,7 +335,7 @@
                 icon: 'error',
                 title: 'Error',
                 text: 'Something went wrong. Please try again.',
-                confirmButtonColor: '#1a4d2e'
+                confirmButtonColor: '#0a0a0a'
             });
         })
         .finally(() => {
