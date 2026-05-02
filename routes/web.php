@@ -46,6 +46,11 @@ Route::prefix('admin')->group(function () {
         Route::put('/portfolio/{id}', [PortfolioWorkController::class, 'update'])->name('admin.portfolio.update');
         Route::delete('/portfolio/{id}', [PortfolioWorkController::class, 'destroy'])->name('admin.portfolio.destroy');
 
+        // Portfolio Categories
+        Route::post('/portfolio-categories', [\App\Http\Controllers\Admin\PortfolioCategoryController::class, 'store'])->name('admin.portfolio.categories.store');
+        Route::put('/portfolio-categories/{id}', [\App\Http\Controllers\Admin\PortfolioCategoryController::class, 'update'])->name('admin.portfolio.categories.update');
+        Route::delete('/portfolio-categories/{id}', [\App\Http\Controllers\Admin\PortfolioCategoryController::class, 'destroy'])->name('admin.portfolio.categories.destroy');
+
         Route::get('/contact-info', [ContactInfoController::class, 'index'])->name('admin.contact.index');
         Route::put('/contact-info/{id}', [ContactInfoController::class, 'update'])->name('admin.contact.update');
         

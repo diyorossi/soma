@@ -46,11 +46,14 @@
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-outline-custom active" onclick="filterPortfolio('all')">All</button>
                 @foreach($categories ?? [] as $category)
-                <button type="button" class="btn btn-outline-custom" onclick="filterPortfolio('{{ Str::slug($category) }}')">{{ $category }}</button>
+                <button type="button" class="btn btn-outline-custom" onclick="filterPortfolio('{{ Str::slug($category->name) }}')">{{ $category->name }}</button>
                 @endforeach
             </div>
         </div>
         <div class="col-md-6 text-end">
+            <button type="button" class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                <i class="fas fa-tags me-2"></i>Manage Categories
+            </button>
             <button type="button" class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#portfolioModal">
                 <i class="fas fa-plus me-2"></i>Add New Work
             </button>
@@ -134,16 +137,8 @@
                                 <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
                                 <select class="form-select" id="category" name="category" required>
                                     <option value="">Select Category</option>
-                                    <option value="Web Development">Web Development</option>
-                                    <option value="Mobile App">Mobile App</option>
-                                    <option value="UI/UX Design">UI/UX Design</option>
-                                    <option value="Branding">Branding</option>
-                                    <option value="Digital Marketing">Digital Marketing</option>
-                                    <option value="Other">Other</option>
                                     @foreach($categories ?? [] as $category)
-                                        @if(!in_array($category, ['Web Development', 'Mobile App', 'UI/UX Design', 'Branding', 'Digital Marketing', 'Other']))
-                                        <option value="{{ $category }}">{{ $category }}</option>
-                                        @endif
+                                        <option value="{{ $category->name }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -196,6 +191,47 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Manage Categories Modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-tags me-2"></i>Manage Categories</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addCategoryForm" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="new_category_name" placeholder="New category name..." required>
+                        <button class="btn btn-primary-custom" type="submit" id="addCategoryBtn">Add</button>
+                    </div>
+                </form>
+
+                <h6 class="mb-3">Existing Categories</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <tbody id="categoryTableBody">
+                            @foreach($categories ?? [] as $category)
+                            <tr id="cat-row-{{ $category->id }}">
+                                <td>
+                                    <span id="cat-name-{{ $category->id }}">{{ $category->name }}</span>
+                                    <input type="text" class="form-control form-control-sm d-none" id="cat-edit-{{ $category->id }}" value="{{ $category->name }}">
+                                </td>
+                                <td class="text-end" style="width: 100px;">
+                                    <button class="btn btn-sm btn-link text-primary" onclick="editCategory({{ $category->id }})" id="cat-btn-edit-{{ $category->id }}"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-link text-success d-none" onclick="saveCategory({{ $category->id }})" id="cat-btn-save-{{ $category->id }}"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-sm btn-link text-danger" onclick="deleteCategory({{ $category->id }})"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -504,5 +540,95 @@
         document.getElementById('imagePreview').style.display = 'none';
         document.getElementById('noImagePlaceholder').style.display = 'block';
     });
+    // Categories management JS
+    document.getElementById('addCategoryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('addCategoryBtn');
+        const input = document.getElementById('new_category_name');
+        const name = input.value.trim();
+        
+        btn.disabled = true;
+        fetch('{{ route("admin.portfolio.categories.store") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ name: name })
+        }).then(res => res.json()).then(data => {
+            btn.disabled = false;
+            if(data.success) {
+                input.value = '';
+                showSuccess(data.message);
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                showError(data.message || 'Failed to add category');
+            }
+        });
+    });
+
+    function editCategory(id) {
+        document.getElementById(`cat-name-${id}`).classList.add('d-none');
+        document.getElementById(`cat-edit-${id}`).classList.remove('d-none');
+        document.getElementById(`cat-btn-edit-${id}`).classList.add('d-none');
+        document.getElementById(`cat-btn-save-${id}`).classList.remove('d-none');
+    }
+
+    function saveCategory(id) {
+        const newName = document.getElementById(`cat-edit-${id}`).value.trim();
+        fetch(`{{ url('admin/portfolio-categories') }}/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                _method: 'PUT',
+                name: newName
+            })
+        }).then(res => res.json()).then(data => {
+            if(data.success) {
+                showSuccess(data.message);
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                showError(data.message || 'Error saving category');
+            }
+        });
+    }
+
+    function deleteCategory(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Items using this category will be moved to 'Uncategorized'!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ff2a2a',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`{{ url('admin/portfolio-categories') }}/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ _method: 'DELETE' })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showSuccess(data.message);
+                        setTimeout(() => location.reload(), 1000);
+                    } else {
+                        showError(data.message || 'Error deleting category');
+                    }
+                });
+            }
+        });
+    }
 </script>
 @endsection

@@ -13,7 +13,7 @@ class PortfolioWorkController extends Controller
     public function index()
     {
         $works = PortfolioWork::orderBy('order', 'asc')->get();
-        $categories = PortfolioWork::distinct()->pluck('category');
+        $categories = \App\Models\PortfolioCategory::orderBy('name')->get();
         $portfolioSection = \App\Models\PortfolioSection::getActive();
         return view('admin.portfolio.index', compact('works', 'categories', 'portfolioSection'));
     }
