@@ -88,11 +88,11 @@
 </section>
 
 <!-- Portfolio Section -->
-<section id="works" class="portfolio-section section-padding">
+<section id="portfolio" class="portfolio-section section-padding bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-label fade-in">Our Works</span>
-            <h2 class="section-title fade-in">Featured Projects</h2>
+            <span class="section-label fade-in">{{ $portfolioSection->label ?? 'Recent Works' }}</span>
+            <h2 class="section-title fade-in">{{ $portfolioSection->title ?? 'Selected Portfolio' }}</h2>
         </div>
         
         @if($categories->count() > 0)

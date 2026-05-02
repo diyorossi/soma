@@ -41,6 +41,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/portfolio', [PortfolioWorkController::class, 'index'])->name('admin.portfolio.index');
         Route::post('/portfolio', [PortfolioWorkController::class, 'store'])->name('admin.portfolio.store');
+        Route::put('/portfolio/section', [PortfolioWorkController::class, 'updateSection'])->name('admin.portfolio.section.update');
         Route::get('/portfolio/{id}', [PortfolioWorkController::class, 'show'])->name('admin.portfolio.show');
         Route::put('/portfolio/{id}', [PortfolioWorkController::class, 'update'])->name('admin.portfolio.update');
         Route::delete('/portfolio/{id}', [PortfolioWorkController::class, 'destroy'])->name('admin.portfolio.destroy');

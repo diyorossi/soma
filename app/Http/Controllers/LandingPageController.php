@@ -22,6 +22,7 @@ class LandingPageController extends Controller
             'whatWeDo' => WhatWeDoSection::getActive(),
             'serviceSection' => \App\Models\ServiceSection::getActive(),
             'services' => Service::getActiveOrdered(),
+            'portfolioSection' => \App\Models\PortfolioSection::getActive(),
             'portfolioWorks' => PortfolioWork::getActiveOrdered(),
             'categories' => PortfolioWork::getCategories(),
             'contactInfo' => ContactInfo::getFirst(),

@@ -6,6 +6,40 @@
 <div class="container-fluid">
     <h1 class="page-title">Portfolio</h1>
     
+    <!-- Section Header Settings -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-heading me-2"></i>Section Header Settings
+        </div>
+        <div class="card-body">
+            <form id="sectionHeaderForm">
+                @csrf
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="section_label" class="form-label">Section Label <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="section_label" name="label" value="{{ $portfolioSection->label ?? 'Recent Works' }}" required>
+                            <small class="text-muted">Appears small above the title.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="section_title" class="form-label">Section Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="section_title" name="title" value="{{ $portfolioSection->title ?? 'Selected Portfolio' }}" required>
+                            <small class="text-muted">The main large title for the portfolio grid.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-center mt-3 mt-md-0">
+                        <button type="submit" class="btn btn-primary-custom w-100" id="headerSubmitBtn">
+                            <i class="fas fa-save me-2"></i>Save Header
+                            <span class="spinner-border spinner-border-sm ms-2 d-none" id="headerSpinner"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <!-- Filter and Add Button -->
     <div class="row mb-3">
         <div class="col-md-6">
@@ -170,6 +204,55 @@
 @section('scripts')
 <script>
     const portfolioModal = new bootstrap.Modal(document.getElementById('portfolioModal'));
+    
+    // Header Form submission
+    document.getElementById('sectionHeaderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const form = this;
+        const submitBtn = document.getElementById('headerSubmitBtn');
+        const spinner = document.getElementById('headerSpinner');
+        const formData = new FormData(form);
+        formData.append('_method', 'PUT');
+        
+        submitBtn.disabled = true;
+        spinner.classList.remove('d-none');
+        
+        fetch('{{ route("admin.portfolio.section.update") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok && response.status !== 422) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            submitBtn.disabled = false;
+            spinner.classList.add('d-none');
+            
+            if (data.success) {
+                showSuccess(data.message);
+            } else {
+                let errorMsg = data.message || 'Failed to save header.';
+                if (data.errors) {
+                    const firstError = Object.values(data.errors)[0][0];
+                    errorMsg = firstError;
+                }
+                showError(errorMsg);
+            }
+        })
+        .catch(error => {
+            submitBtn.disabled = false;
+            spinner.classList.add('d-none');
+            showError('An error occurred. Please check your inputs and try again.');
+        });
+    });
     
     // Image preview
     document.getElementById('portfolio_image').addEventListener('change', function(e) {

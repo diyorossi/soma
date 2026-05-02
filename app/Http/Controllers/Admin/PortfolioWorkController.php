@@ -14,7 +14,8 @@ class PortfolioWorkController extends Controller
     {
         $works = PortfolioWork::orderBy('order', 'asc')->get();
         $categories = PortfolioWork::distinct()->pluck('category');
-        return view('admin.portfolio.index', compact('works', 'categories'));
+        $portfolioSection = \App\Models\PortfolioSection::getActive();
+        return view('admin.portfolio.index', compact('works', 'categories', 'portfolioSection'));
     }
 
     public function store(Request $request)
@@ -113,6 +114,22 @@ class PortfolioWorkController extends Controller
         return response()->json([
             'success' => true,
             'work' => $work
+        ]);
+    }
+
+    public function updateSection(Request $request)
+    {
+        $validated = $request->validate([
+            'label' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+        ]);
+
+        $section = \App\Models\PortfolioSection::getActive();
+        $section->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Portfolio section header updated successfully!'
         ]);
     }
 }
