@@ -27,6 +27,9 @@ class ServiceController extends Controller
 
         $service = Service::create($validated);
 
+        // Clear landing page cache
+        \Illuminate\Support\Facades\Cache::forget('landing_page_data');
+
         return response()->json([
             'success' => true,
             'message' => 'Service created successfully!',
@@ -51,6 +54,9 @@ class ServiceController extends Controller
 
         $service->update($validated);
 
+        // Clear landing page cache
+        \Illuminate\Support\Facades\Cache::forget('landing_page_data');
+
         return response()->json([
             'success' => true,
             'message' => 'Service updated successfully!',
@@ -62,6 +68,9 @@ class ServiceController extends Controller
     {
         $service = Service::findOrFail($id);
         $service->delete();
+
+        // Clear landing page cache
+        \Illuminate\Support\Facades\Cache::forget('landing_page_data');
 
         return response()->json([
             'success' => true,

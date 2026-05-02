@@ -28,6 +28,9 @@ class WhatWeDoSectionController extends Controller
 
         $whatWeDo->update($validated);
 
+        // Clear landing page cache
+        \Illuminate\Support\Facades\Cache::forget('landing_page_data');
+
         return response()->json([
             'success' => true,
             'message' => 'What We Do section updated successfully!'

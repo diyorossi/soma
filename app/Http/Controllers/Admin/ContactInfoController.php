@@ -33,6 +33,9 @@ class ContactInfoController extends Controller
 
         $contactInfo->update($validated);
 
+        // Clear landing page cache
+        \Illuminate\Support\Facades\Cache::forget('landing_page_data');
+
         return response()->json([
             'success' => true,
             'message' => 'Contact information updated successfully!'

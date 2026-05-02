@@ -59,7 +59,7 @@
 <!-- What We Do Section -->
 <section class="whatwedo-section section-padding">
     <div class="container">
-        <span class="section-label fade-in">What We Do</span>
+        <span class="section-label fade-in">{{ $whatWeDo->title ?? 'What We Do' }}</span>
         <h2 class="whatwedo-content fade-in">
             {{ $whatWeDo->content ?? 'We\'ll do whatever it takes to get your brand the attention it deserves, not just reach but real relevance. We deliver a full spectrum of creative branding services with an AI-powered workflow.' }}
         </h2>

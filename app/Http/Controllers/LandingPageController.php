@@ -16,21 +16,15 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        // Cache landing page data for 1 hour to reduce database queries
-        $cacheKey = 'landing_page_data';
-        $cacheDuration = 3600; // 1 hour in seconds
-        
-        $data = Cache::remember($cacheKey, $cacheDuration, function() {
-            return [
-                'hero' => HeroSection::getActive(),
-                'about' => AboutSection::getActive(),
-                'whatWeDo' => WhatWeDoSection::getActive(),
-                'services' => Service::getActiveOrdered(),
-                'portfolioWorks' => PortfolioWork::getActiveOrdered(),
-                'categories' => PortfolioWork::getCategories(),
-                'contactInfo' => ContactInfo::getFirst(),
-            ];
-        });
+        $data = [
+            'hero' => HeroSection::getActive(),
+            'about' => AboutSection::getActive(),
+            'whatWeDo' => WhatWeDoSection::getActive(),
+            'services' => Service::getActiveOrdered(),
+            'portfolioWorks' => PortfolioWork::getActiveOrdered(),
+            'categories' => PortfolioWork::getCategories(),
+            'contactInfo' => ContactInfo::getFirst(),
+        ];
         
         return view('landing.index', $data);
     }
