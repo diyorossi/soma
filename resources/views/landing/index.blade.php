@@ -4,32 +4,13 @@
 
 <!-- Hero Section -->
 <section id="home" class="hero-section">
-    <div class="hero-bg">
-        <div class="hero-orb orb-1"></div>
-        <div class="hero-orb orb-2"></div>
-        <div class="hero-orb orb-3"></div>
-        <div class="hero-particles">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-        </div>
-        <div class="hero-lines">
-            <div class="hero-line"></div>
-            <div class="hero-line"></div>
-            <div class="hero-line"></div>
-            <div class="hero-line"></div>
-        </div>
+    <div class="hero-deco">
+        <div class="hero-deco-block"></div>
+        <div class="hero-deco-block"></div>
+        <div class="hero-deco-block"></div>
+        <div class="hero-deco-block"></div>
     </div>
-    <div class="hero-grain"></div>
+    <div class="hero-grid-lines"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 hero-content">
@@ -318,7 +299,7 @@
                     icon: 'success',
                     title: 'Success!',
                     text: data.message,
-                    confirmButtonColor: '#0a0a0a'
+                    confirmButtonColor: '#0D0D0D'
                 });
                 form.reset();
             } else {
@@ -326,7 +307,7 @@
                     icon: 'error',
                     title: 'Error',
                     text: 'Something went wrong. Please try again.',
-                    confirmButtonColor: '#0a0a0a'
+                    confirmButtonColor: '#0D0D0D'
                 });
             }
         })
@@ -335,7 +316,7 @@
                 icon: 'error',
                 title: 'Error',
                 text: 'Something went wrong. Please try again.',
-                confirmButtonColor: '#0a0a0a'
+                confirmButtonColor: '#0D0D0D'
             });
         })
         .finally(() => {
