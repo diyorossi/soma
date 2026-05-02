@@ -240,7 +240,7 @@
                 <a href="#home" class="footer-link">Home</a>
                 <a href="#about" class="footer-link">About Us</a>
                 <a href="#services" class="footer-link">Services</a>
-                <a href="#works" class="footer-link">Our Works</a>
+                <a href="#portfolio" class="footer-link">Our Works</a>
                 <a href="#contact" class="footer-link">Contact</a>
             </div>
             <div class="col-lg-4">
