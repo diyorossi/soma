@@ -46,8 +46,7 @@
                 </div>
             </div>
             <div class="col-lg-6 fade-in">
-                <span class="section-label">About Us</span>
-                <h2 class="section-title">{{ $about->title ?? 'We Are SOMA' }}</h2>
+                <span class="section-label">{{ $about->title ?? 'We Are SOMA' }}</span>
                 <div class="about-content">
                     {!! $about->content ?? 'We are the first creative branding agency AI based that built to help brands grow with content that\'s fast, consistent, and unmistakably on-brand. We combine an AI content engine with branding experts who understand your guidelines, so you achieve premium output without conventional agency overhead.' !!}
                 </div>
@@ -70,8 +69,8 @@
 <section id="services" class="services-section section-padding">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-label fade-in">Our Services</span>
-            <h2 class="section-title fade-in">What We Offer</h2>
+            <span class="section-label fade-in">{{ $serviceSection->label ?? 'Our Services' }}</span>
+            <h2 class="section-title fade-in">{{ $serviceSection->title ?? 'What We Offer' }}</h2>
         </div>
         
         <div class="row g-4">

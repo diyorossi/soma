@@ -11,7 +11,8 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::orderBy('order', 'asc')->get();
-        return view('admin.services.index', compact('services'));
+        $serviceSection = \App\Models\ServiceSection::getActive();
+        return view('admin.services.index', compact('services', 'serviceSection'));
     }
 
     public function store(Request $request)
@@ -86,6 +87,22 @@ class ServiceController extends Controller
         return response()->json([
             'success' => true,
             'service' => $service
+        ]);
+    }
+
+    public function updateSection(Request $request)
+    {
+        $validated = $request->validate([
+            'label' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+        ]);
+
+        $section = \App\Models\ServiceSection::getActive();
+        $section->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Service section header updated successfully!'
         ]);
     }
 }

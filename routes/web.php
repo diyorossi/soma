@@ -34,6 +34,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/services', [ServiceController::class, 'index'])->name('admin.services.index');
         Route::post('/services', [ServiceController::class, 'store'])->name('admin.services.store');
+        Route::put('/services/section', [ServiceController::class, 'updateSection'])->name('admin.services.section.update');
         Route::get('/services/{id}', [ServiceController::class, 'show'])->name('admin.services.show');
         Route::put('/services/{id}', [ServiceController::class, 'update'])->name('admin.services.update');
         Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');

@@ -20,6 +20,7 @@ class LandingPageController extends Controller
             'hero' => HeroSection::getActive(),
             'about' => AboutSection::getActive(),
             'whatWeDo' => WhatWeDoSection::getActive(),
+            'serviceSection' => \App\Models\ServiceSection::getActive(),
             'services' => Service::getActiveOrdered(),
             'portfolioWorks' => PortfolioWork::getActiveOrdered(),
             'categories' => PortfolioWork::getCategories(),
