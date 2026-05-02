@@ -57,5 +57,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/messages/{id}', [ContactMessageController::class, 'show'])->name('admin.messages.show');
         Route::post('/messages/{id}/read', [ContactMessageController::class, 'markAsRead'])->name('admin.messages.read');
         Route::delete('/messages/{id}', [ContactMessageController::class, 'destroy'])->name('admin.messages.destroy');
+
+        // Site Settings
+        Route::get('/settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'index'])->name('admin.settings.index');
+        Route::put('/settings', [\App\Http\Controllers\Admin\SiteSettingController::class, 'update'])->name('admin.settings.update');
     });
 });

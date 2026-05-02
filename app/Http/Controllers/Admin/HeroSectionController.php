@@ -23,6 +23,7 @@ class HeroSectionController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'nullable|string|max:1000',
+            'description' => 'nullable|string|max:2000',
             'cta_text' => 'required|string|max:100',
             'cta_link' => 'required|string|max:255',
             'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Dashboard') | SOMA</title>
+    <title>@yield('title', 'Admin Dashboard') | {{ \App\Models\SiteSetting::getSettings()->site_name }}</title>
     
     <!-- Preconnect -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -1103,7 +1103,7 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-            <i class="fas fa-s"></i>SOMA
+            <i class="fas fa-s"></i>{{ \App\Models\SiteSetting::getSettings()->site_name }}
         </a>
     </div>
     
@@ -1161,6 +1161,12 @@
                 @if($unreadCount > 0)
                     <span class="badge bg-danger">{{ $unreadCount }}</span>
                 @endif
+            </a>
+        </div>
+        
+        <div class="sidebar-item">
+            <a href="{{ route('admin.settings.index') }}" class="sidebar-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                <i class="fas fa-cogs"></i>Site Settings
             </a>
         </div>
     </div>

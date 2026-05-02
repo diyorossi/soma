@@ -24,7 +24,13 @@
                         
                         <div class="mb-3">
                             <label for="subtitle" class="form-label">Subtitle</label>
-                            <textarea class="form-control" id="subtitle" name="subtitle" rows="3">{{ $hero->subtitle ?? '' }}</textarea>
+                            <textarea class="form-control" id="subtitle" name="subtitle" rows="2">{{ $hero->subtitle ?? '' }}</textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter hero description text">{{ $hero->description ?? '' }}</textarea>
+                            <small class="text-muted">This text appears below the hero title on the landing page.</small>
                         </div>
                         
                         <div class="mb-3">

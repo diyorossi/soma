@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | SOMA</title>
+    <title>Admin Login | {{ \App\Models\SiteSetting::getSettings()->site_name }}</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -339,7 +339,7 @@
 <div class="login-container">
     <div class="login-card">
         <div class="login-header">
-            <h1><i class="fas fa-s me-2"></i>SOMA</h1>
+            <h1><i class="fas fa-s me-2"></i>{{ \App\Models\SiteSetting::getSettings()->site_name }}</h1>
             <p>Admin Panel</p>
         </div>
         

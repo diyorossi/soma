@@ -14,6 +14,7 @@ class HeroSection extends Model
     protected $fillable = [
         'title',
         'subtitle',
+        'description',
         'cta_text',
         'cta_link',
         'background_image',
