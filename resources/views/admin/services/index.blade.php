@@ -149,11 +149,17 @@
         fetch(url, {
             method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': csrfToken
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
             },
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok && response.status !== 422) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             submitBtn.disabled = false;
             spinner.classList.add('d-none');
@@ -169,13 +175,19 @@
                     addServiceRow(data.service);
                 }
             } else {
-                showError(data.message || 'Failed to save service.');
+                // Handle Laravel 422 validation errors gracefully
+                let errorMsg = data.message || 'Failed to save service.';
+                if (data.errors) {
+                    const firstError = Object.values(data.errors)[0][0];
+                    errorMsg = firstError;
+                }
+                showError(errorMsg);
             }
         })
         .catch(error => {
             submitBtn.disabled = false;
             spinner.classList.add('d-none');
-            showError('An error occurred. Please try again.');
+            showError('An error occurred. Please check your inputs and try again.');
             console.error('Error:', error);
         });
     });

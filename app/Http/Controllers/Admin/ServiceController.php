@@ -18,12 +18,14 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:2000',
-            'icon' => 'required|string|max:100',
+            'description' => 'nullable|string|max:2000',
+            'icon' => 'nullable|string|max:100',
             'order' => 'nullable|integer|min:0',
+            'is_active' => 'boolean',
         ]);
 
         $validated['order'] = $validated['order'] ?? 0;
+        $validated['is_active'] = $request->boolean('is_active', false);
 
         $service = Service::create($validated);
 
@@ -33,7 +35,7 @@ class ServiceController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Service created successfully!',
-            'data' => $service
+            'service' => $service
         ]);
     }
 
@@ -43,8 +45,8 @@ class ServiceController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:2000',
-            'icon' => 'required|string|max:100',
+            'description' => 'nullable|string|max:2000',
+            'icon' => 'nullable|string|max:100',
             'order' => 'nullable|integer|min:0',
             'is_active' => 'boolean',
         ]);
@@ -60,7 +62,7 @@ class ServiceController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Service updated successfully!',
-            'data' => $service
+            'service' => $service
         ]);
     }
 

@@ -27,6 +27,7 @@ class PortfolioWorkController extends Controller
             'client_name' => 'nullable|string|max:255',
             'project_link' => 'nullable|url|max:500',
             'order' => 'nullable|integer|min:0',
+            'is_active' => 'boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -35,6 +36,7 @@ class PortfolioWorkController extends Controller
         }
 
         $validated['order'] = $validated['order'] ?? 0;
+        $validated['is_active'] = $request->boolean('is_active', false);
 
         $work = PortfolioWork::create($validated);
 
@@ -44,7 +46,7 @@ class PortfolioWorkController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Portfolio work added successfully!',
-            'data' => $work
+            'work' => $work
         ]);
     }
 
@@ -82,7 +84,7 @@ class PortfolioWorkController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Portfolio work updated successfully!',
-            'data' => $work
+            'work' => $work
         ]);
     }
 
