@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\PortfolioWork;
 use App\Models\ContactInfo;
 use App\Models\ContactMessage;
+use App\Models\SocialMedia;
 use Illuminate\Support\Facades\Cache;
 
 class LandingPageController extends Controller
@@ -26,6 +27,7 @@ class LandingPageController extends Controller
             'portfolioWorks' => PortfolioWork::getActiveOrdered(),
             'categories' => PortfolioWork::getCategories(),
             'contactInfo' => ContactInfo::getFirst(),
+            'socialLinks' => SocialMedia::orderBy('order')->get(),
         ];
         
         return view('landing.index', $data);

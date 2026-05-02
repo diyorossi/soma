@@ -39,35 +39,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="facebook_link" class="form-label">
-                                <i class="fab fa-facebook text-success me-2"></i>Facebook
-                            </label>
-                            <input type="url" class="form-control" id="facebook_link" name="facebook_link" value="{{ $contact->facebook_link ?? '' }}" placeholder="https://facebook.com/yourpage">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="instagram_link" class="form-label">
-                                <i class="fab fa-instagram text-success me-2"></i>Instagram
-                            </label>
-                            <input type="url" class="form-control" id="instagram_link" name="instagram_link" value="{{ $contact->instagram_link ?? '' }}" placeholder="https://instagram.com/yourpage">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="twitter_link" class="form-label">
-                                <i class="fab fa-twitter text-success me-2"></i>Twitter
-                            </label>
-                            <input type="url" class="form-control" id="twitter_link" name="twitter_link" value="{{ $contact->twitter_link ?? '' }}" placeholder="https://twitter.com/yourpage">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="linkedin_link" class="form-label">
-                                <i class="fab fa-linkedin text-success me-2"></i>LinkedIn
-                            </label>
-                            <input type="url" class="form-control" id="linkedin_link" name="linkedin_link" value="{{ $contact->linkedin_link ?? '' }}" placeholder="https://linkedin.com/in/yourprofile">
-                        </div>
-                    </div>
+                    
                 </div>
                 
                 <div class="text-end">

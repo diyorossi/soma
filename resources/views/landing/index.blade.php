@@ -213,20 +213,25 @@
                 <span class="footer-brand">SOMA</span>
                 <p class="footer-description">{{ $about->content ?? 'We are the first creative branding agency AI based that built to help brands grow with content that\'s fast, consistent, and unmistakably on-brand.' }}</p>
                 <div class="social-links mt-4">
-                    @if($contactInfo && $contactInfo->facebook_link)
-                        <a href="{{ $contactInfo->facebook_link }}" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    @endif
-                    @if($contactInfo && $contactInfo->instagram_link)
-                        <a href="{{ $contactInfo->instagram_link }}" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-                    @endif
-                    @if($contactInfo && $contactInfo->twitter_link)
-                        <a href="{{ $contactInfo->twitter_link }}" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
-                    @endif
-                    @if($contactInfo && $contactInfo->linkedin_link)
-                        <a href="{{ $contactInfo->linkedin_link }}" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    @endif
-                    @if($contactInfo && $contactInfo->tiktok_link)
-                        <a href="{{ $contactInfo->tiktok_link }}" class="social-link" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    @if($socialLinks && $socialLinks->count() > 0)
+                        @foreach($socialLinks as $social)
+                            <a href="{{ $social->url }}" class="social-link" target="_blank">
+                                <i class="fab {{ $social->icon ?? 'fa-link' }}"></i>
+                            </a>
+                        @endforeach
+                    @else
+                        @if($contactInfo && $contactInfo->facebook_link)
+                            <a href="{{ $contactInfo->facebook_link }}" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        @endif
+                        @if($contactInfo && $contactInfo->instagram_link)
+                            <a href="{{ $contactInfo->instagram_link }}" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                        @endif
+                        @if($contactInfo && $contactInfo->twitter_link)
+                            <a href="{{ $contactInfo->twitter_link }}" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+                        @endif
+                        @if($contactInfo && $contactInfo->linkedin_link)
+                            <a href="{{ $contactInfo->linkedin_link }}" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        @endif
                     @endif
                 </div>
             </div>
