@@ -26,7 +26,7 @@ class HeroSectionController extends Controller
             'description' => 'nullable|string|max:2000',
             'cta_text' => 'required|string|max:100',
             'cta_link' => 'required|string|max:255',
-            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg,heic|max:5048',
             'is_active' => 'boolean',
         ]);
 
