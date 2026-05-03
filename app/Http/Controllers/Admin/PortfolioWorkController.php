@@ -23,7 +23,7 @@ class PortfolioWorkController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:2000',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
             'category' => 'required|string|max:100',
             'client_name' => 'nullable|string|max:255',
             'project_link' => 'nullable|url|max:500',
