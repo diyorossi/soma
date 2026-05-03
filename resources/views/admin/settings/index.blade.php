@@ -20,7 +20,7 @@
                         <div class="mb-3">
                             <label for="site_name" class="form-label">Site Name / Brand Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="site_name" name="site_name" value="{{ $settings->site_name ?? 'SOMA' }}" required>
-                            <small class="text-muted">This name appears in the navbar, admin sidebar, and login page.</small>
+                            <small class="text-muted">This name appears in the navbar, footer, admin sidebar, and login page.</small>
                         </div>
                     </div>
                 </div>

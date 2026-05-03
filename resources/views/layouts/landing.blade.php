@@ -896,6 +896,40 @@
             font-family: var(--font-display);
         }
 
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: #ffe057;
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: #ff5277;
+            color: #000;
+            transform: translateY(-3px);
+        }
+
         /* ============================================
            ANIMATIONS
            ============================================ */
@@ -1367,6 +1401,31 @@
 </script>
 
 @yield('scripts')
+
+<!-- Scroll to Top Button -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+    // Scroll to Top functionality
+    const scrollTopBtn = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
+    
+    scrollTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
 
 </body>
 </html>

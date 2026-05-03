@@ -210,8 +210,8 @@
     <div class="container">
         <div class="row g-5">
             <div class="col-lg-4">
-                <span class="footer-brand">SOMA</span>
-                <p class="footer-description">{{ $about->content ?? 'We are the first creative branding agency AI based that built to help brands grow with content that\'s fast, consistent, and unmistakably on-brand.' }}</p>
+                <span class="footer-brand">{{ \App\Models\SiteSetting::getSettings()->site_name }}</span>
+                <p class="footer-description">{{ strip_tags($about->content ?? 'We are the first creative branding agency AI based that built to help brands grow with content that\'s fast, consistent, and unmistakably on-brand.') }}</p>
                 <div class="social-links mt-4">
                     @if($socialLinks && $socialLinks->count() > 0)
                         @foreach($socialLinks as $social)
@@ -251,7 +251,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} SOMA. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} {{ \App\Models\SiteSetting::getSettings()->site_name }}. All rights reserved.</p>
         </div>
     </div>
 </footer>
